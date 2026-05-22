@@ -29,6 +29,21 @@ export default function Login() {
     }
   }
 
+  const handleDemo = async () => {
+    setError('')
+    setLoading(true)
+    try {
+      const response = await authAPI.login('demo@example.com', 'password123')
+      const { user, token } = response.data
+      login(user, token)
+      navigate('/')
+    } catch (err) {
+      setError('Demo login failed')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary to-secondary">
       <div className="bg-white p-8 rounded-lg shadow-xl w-96">
@@ -78,6 +93,10 @@ export default function Login() {
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
+
+        <div className="mt-3">
+          <button onClick={handleDemo} className="w-full border border-gray-200 bg-white py-2 rounded-lg font-medium hover:bg-gray-50">Use Demo Account</button>
+        </div>
 
         <p className="text-center text-gray-600 text-sm mt-4">
           Don't have an account?{' '}

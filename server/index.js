@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.js'
 import productRoutes from './routes/products.js'
 import aiRoutes from './routes/ai.js'
 import salesRoutes from './routes/sales.js'
+import adminRoutes from './routes/admin.js'
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/ai', aiRoutes)
 app.use('/api/sales', salesRoutes)
+app.use('/api/admin', adminRoutes)
 
 // Health check
 app.get('/api/health', (req, res) => {

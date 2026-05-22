@@ -87,6 +87,40 @@ router.get('/top-products', async (req, res) => {
   }
 })
 
+// @route GET /api/sales/product-history/:productId
+// @desc Get revenue history for a product (last 14 days)
+// @access Private
+router.get('/product-history/:productId', async (req, res) => {
+  try {
+    const { productId } = req.params
+    const days = 14
+    const fromDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
+
+    const history = await Sales.aggregate([
+      {
+        $match: {
+          userId: req.user.id,
+          productId: new require('mongoose').Types.ObjectId(productId),
+          date: { $gte: fromDate },
+        },
+      },
+      {
+        $group: {
+          _id: { $dateToString: { format: '%Y-%m-%d', date: '$date' } },
+          revenue: { $sum: '$totalRevenue' },
+          orders: { $sum: 1 },
+        },
+      },
+      { $sort: { _id: 1 } },
+    ])
+
+    res.json(history)
+  } catch (error) {
+    console.error('Error fetching product history:', error)
+    res.status(500).json({ message: 'Failed to fetch product history' })
+  }
+})
+
 // @route GET /api/sales/low-stock
 // @desc Get products with low stock
 // @access Private

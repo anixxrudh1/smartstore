@@ -52,8 +52,13 @@ export const aiAPI = {
 export const salesAPI = {
   getRevenue: () => api.get('/sales/revenue'),
   getTopProducts: () => api.get('/sales/top-products'),
+  getProductHistory: (productId) => api.get(`/sales/product-history/${productId}`),
   getSalesData: () => api.get('/sales/data'),
   getLowStockProducts: () => api.get('/sales/low-stock'),
+}
+
+export const adminAPI = {
+  seedDemo: () => api.post('/admin/seed'),
 }
 
 export default api

@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import Products from './pages/Products'
 import AIContent from './pages/AIContent'
 import Sales from './pages/Sales'
+import Landing from './pages/Landing'
 import { useAuthStore } from './store/authStore'
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
             <>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="*" element={<Navigate to="/login" />} />
+              <Route path="/" element={<Landing />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </>
           ) : (
             <>

@@ -7,6 +7,11 @@
 </head>
 <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+        <script>
+            // Safety no-ops for React Refresh in case Vite's client preamble is not present.
+            window.$RefreshReg$ = window.$RefreshReg$ || function() {}
+            window.$RefreshSig$ = window.$RefreshSig$ || function() { return function() {} }
+        </script>
+        <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
